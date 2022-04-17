@@ -34,6 +34,11 @@ app.get('/tech_in_oracle/ranking', (req, res) => {
     res.end()
 })
 
+app.get('/', (req, res) => {
+    res.send('Yep, I\'m around')
+})
+
+
 app.listen(PORT, () => {
     console.log(`Up and running on port ${PORT}`)
 })
