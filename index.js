@@ -4,13 +4,12 @@ const cors = require('cors')
 const express = require('express')
 const titleCase = require('title-case')
 const _ = require('underscore')
-const fastCSV = require ('fast-csv')
-const fs = require('fs')
+
 
 
 const {
         GOOGLE_KEY, GOOGLE_SHEET_NAME, GOOGLE_SHEET_PRE_PROGRAMACAO_ID, GOOGLE_BASE_URL_SHEET,
-        TECH_IN_ORACLE_FOLDER, TECH_IN_ORACLE_SHEET_NAME,
+        TECH_IN_ORACLE_ENDPOINT,
         PORT
 } = process.env
 
@@ -39,17 +38,7 @@ app.get('/pre_prog/ranking', async (req, res) => {
 })
 
 app.get('/tech_in_oracle/ranking', (req, res) => {
-    let result = []
-    fs.createReadStream(`${TECH_IN_ORACLE_FOLDER}/${TECH_IN_ORACLE_SHEET_NAME}`)
-    .pipe(fastCSV.parse({headers: true}))
-    .on('data', (linha) => {
-        console.log(typeof(linha))
-        result.push({
-            nome: linha['Nome Completo'],
-            progresso: linha['Progresso'],
-        })
-    })
-    .on('end', () => res.end(JSON.stringify(result)) )
+    
     
 })
 
