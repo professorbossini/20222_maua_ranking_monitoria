@@ -9,7 +9,7 @@ const _ = require('underscore')
 
 const {
         GOOGLE_KEY, GOOGLE_SHEET_NAME, GOOGLE_SHEET_PRE_PROGRAMACAO_ID, GOOGLE_BASE_URL_SHEET,
-        TECH_IN_ORACLE_ENDPOINT,
+        TECH_IN_ORACLE_ENDPOINT,TECH_IN_ORACLE_ENDPOINT_LIMIT,
         PORT
 } = process.env
 
@@ -39,9 +39,12 @@ app.get('/pre_prog/ranking', async (req, res) => {
 
 app.get('/tech_in_oracle/ranking', async (req, res) => {
     try{
-        const url = `${TECH_IN_ORACLE_ENDPOINT}`
+        const url = `${TECH_IN_ORACLE_ENDPOINT}?limit=${TECH_IN_ORACLE_ENDPOINT_LIMIT}`
         let {data: ranking} = await axios.get(url)
-        ranking = ranking.items.map(dado => {
+        console.log(ranking)
+        ranking = ranking.items
+        .filter(dado => dado.nome_completo !== null) 
+        .map(dado => {
             return{
                 nome: titleCase.titleCase(dado.nome_completo),
                 pontos: Number(dado.progresso.replace('%', '')),
