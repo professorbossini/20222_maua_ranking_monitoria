@@ -23,7 +23,7 @@ app.get('/pre_prog/ranking', async (req, res) => {
                 pontos: dado.slice(3).reduce((acc, curr) => acc + Number(curr), 0)
             }
         })
-        res.json(_.sortBy(ranking, 'pontos').reverse())
+        res.json(_.sortBy(_.sortBy(ranking, 'nome').reverse(), 'pontos').reverse())
     }
     catch(error){
         console.log(error)
