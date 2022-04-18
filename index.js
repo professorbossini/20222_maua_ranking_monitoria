@@ -1,5 +1,6 @@
 require('dotenv').config()
 const axios = require('axios')
+const cors = require('cors')
 const express = require('express')
 const titleCase = require('title-case')
 const _ = require('underscore')
@@ -9,7 +10,7 @@ const {GOOGLE_KEY, GOOGLE_SHEET_NAME, GOOGLE_SHEET_PRE_PROGRAMACAO_ID, GOOGLE_BA
 
 const app = express()
 app.use(express.json())
-
+app.use(cors())
 app.get('/pre_prog/ranking', async (req, res) => {
     try{
         const url = `${GOOGLE_BASE_URL_SHEET}${GOOGLE_SHEET_PRE_PROGRAMACAO_ID}/values/${GOOGLE_SHEET_NAME}?key=${GOOGLE_KEY}`
