@@ -37,8 +37,23 @@ app.get('/pre_prog/ranking', async (req, res) => {
     }
 })
 
-app.get('/tech_in_oracle/ranking', (req, res) => {
-    
+app.get('/tech_in_oracle/ranking', async (req, res) => {
+    try{
+        const url = `${TECH_IN_ORACLE_ENDPOINT}`
+        let {data: ranking} = await axios.get(url)
+        ranking = ranking.items.map(dado => {
+            return{
+                nome: titleCase.titleCase(dado.nome_completo),
+                pontos: Number(dado.progresso.replace('%', '')),
+                ies: dado.ies
+            }
+        })
+        res.json(_.sortBy(_.sortBy(ranking, 'nome').reverse(), 'pontos').reverse())
+    }
+    catch(e){
+        console.log(e)
+        res.send('Tente novamente mais tarde')
+    }
     
 })
 
