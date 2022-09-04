@@ -1,5 +1,5 @@
 {
-  "name": "extensao_backend_preprogramacao_e_techinoracle",
+  "name": "maua_ranking_monitoria_backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,6 +22,6 @@
     "underscore": "^1.13.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.19"
   }
 }
