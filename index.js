@@ -15,6 +15,7 @@ const {
 const app = express()
 app.use(express.json())
 app.use(cors())
+// console.log('chegou')
 app.get('/ranking', async (req, res) => {
     try{
         const url = `${GOOGLE_BASE_URL_SHEET}/${GOOGLE_SHEET_ID}/values/${GOOGLE_SHEET_NAME}?key=${GOOGLE_KEY}`
@@ -23,9 +24,11 @@ app.get('/ranking', async (req, res) => {
             return {
                 ra: dado[0],
                 nome: dado[1],
-                pontos: dado.slice(2).reduce((acc, curr) => acc + Number(curr), 0)
+                pontos: dado.slice(2).reduce((acc, curr) => acc + Number(curr), 0),
+                nota: dado.slice(2).reduce((acc, curr) => acc + Number(curr), 0) / 20
             }
         })
+        // console.log(ranking)
         res.json(_.sortBy(_.sortBy(ranking, 'nome').reverse(), 'pontos').reverse())
     }
     catch(error){
