@@ -25,7 +25,7 @@ app.get('/ranking', async (req, res) => {
                 ra: dado[0],
                 nome: dado[1],
                 pontos: dado.slice(2).reduce((acc, curr) => acc + Number(curr), 0),
-                nota: dado.slice(2).reduce((acc, curr) => acc + Number(curr), 0) / 20
+                nota: Math.min(dado.slice(2).reduce((acc, curr) => acc + Number(curr), 0) / 20, 2)
             }
         })
         // console.log(ranking)
